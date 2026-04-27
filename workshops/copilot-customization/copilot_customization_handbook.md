@@ -18,10 +18,7 @@ GitHub Copilot offers several distinct customization mechanisms, each designed t
 | Prompt Files | Reusable task templates for common workflows | On-demand via `/command` | `.github/prompts/*.prompt.md` |
 | Custom Agents | Named personas with specific tools and rules | User selects agent in chat | `.github/agents/*.agent.md` |
 | Agent Skills | Portable specialized capabilities with resources | Auto-activated by prompt matching | `.github/skills/*/SKILL.md` |
-| MCP Servers | Connection to external systems, APIs, and databases | Invoked via tools | `.vscode/mcp.json` or `~/.copilot/mcp-config.json` |
 | Hooks | Custom scripts that run at specific points in the workflow | Triggered by events | `.github/hooks/*.json` or `~/.copilot/hooks` |
-| Plugins | Extend Copilot functionality with additional features | Installed and configured by user | `.github/plugins/*.plugin.md` |
-| Agentic Workflows | Repository Automation with strong guardrails | Any GitHub Actions Trigger | `.github/workflows/*.md` |
 
 :::info 
 All customization files are Markdown-based with YAML frontmatter. They can be committed to your repository and shared with your entire team through version control. Exceptions are MCP servers and hooks which are JSON.  
@@ -299,109 +296,6 @@ This means you can install many skills without bloating the context window.
 :::tip
 Skills are an open standard. A skill you create for GitHub Copilot in VS Code also works with GitHub Copilot CLI, the Copilot coding agent, and Claude Code.
 :::
-
-## 6. MCP Servers
-
-MCP (Model Context Protocol) is an open standard for connecting AI applications to external systems. Think of it like a USB-C port for AI — just as USB-C provides a standardized way to connect devices, MCP provides a standardized way to connect AI models to data sources, tools, and workflows. MCP servers let Copilot reach beyond your codebase to interact with databases, APIs, cloud services, browsers, and any custom backend you build.
-
-### How MCP Works
-
-MCP follows a client-server architecture. VS Code acts as the **MCP host**, creating an **MCP client** for each configured **MCP server**. Each client maintains a dedicated connection to its server. Servers can run locally (via stdio transport) or remotely (via HTTP transport).
-
-When you configure an MCP server, VS Code discovers the server's capabilities during an initialization handshake. The server advertises what it can do, and those capabilities become available as tools in Copilot Chat.
-
-MCP servers may run locally on your machine or remotely.  Many vendors provide hosted (remote) MCP servers for their tools and this is ideal so you don't have to worry about maintenance and updates. 
-
-### What MCP Servers Provide
-
-MCP servers expose three core primitives:
-
-| Primitive | What It Does | How to Use in VS Code |
-|-----------|-------------|----------------------|
-| **Tools** | Executable functions the AI can invoke (e.g., query a database, call an API, manipulate files) | Available automatically in Agent mode; toggle via the tools icon in chat |
-| **Resources** | Read-only context data (e.g., file contents, database schemas, API responses) that attach to your prompt | Select **Add Context > MCP Resources** in the chat input |
-| **Prompts** | Preconfigured prompt templates tailored to the server's capabilities | Type `/<server-name>.<prompt-name>` in chat |
-
-### Configuring MCP Servers
-
-There are two ways to add MCP servers:
-
-**1. MCP Gallery (recommended for discovery):** Open the Extensions view (`⇧⌘X`), filter by `@mcp`, and install servers directly. Servers installed in your workspace update `.vscode/mcp.json` automatically.
-
-**2. Manual configuration:** Create or edit `.vscode/mcp.json` in your project root. This file can be committed to version control so your entire team shares the same server configuration.  Here is an example using the remote GitHub MCP server and a local Playwright server:
-
-```json
-{
-  "servers": {
-    "github": {
-      "type": "http",
-      "url": "https://api.githubcopilot.com/mcp"
-    },
-    "playwright": {
-      "command": "npx",
-      "args": ["-y", "@microsoft/mcp-server-playwright"]
-    }
-  }
-}
-```
-
-Beyond the gallery, you can also find MCP servers by looking at registries.  For example: 
-
-* [GitHub MCP Registry](https://github.com/mcp)
-* [Official MCP Registry](https://registry.modelcontextprotocol.io/)
-
-:::warning
-Local MCP servers run arbitrary code on your machine. Only add servers from trusted sources and review the code and configuration before starting. VS Code prompts you to confirm trust when starting a server for the first time.
-:::
-
-### Configuration Scopes
-
-| Scope | Location | Shared with Team | Best For |
-|-------|----------|-----------------|----------|
-| Workspace | `.vscode/mcp.json` | Yes (commit to repo) | Project-specific servers (DB, APIs) |
-| User profile | User-level `mcp.json` | No | Personal productivity servers |
-| Dev container | `devcontainer.json` | Yes | Consistent environment in containers |
-
-For user-level `mcp.json`, use the **MCP: Open User Configuration** command. 
-
-### Sandboxing (macOS/Linux)
-
-You can restrict a local MCP server's access to the file system and network by enabling sandboxing:
-
-```json
-{
-  "servers": {
-    "myServer": {
-      "command": "npx",
-      "args": ["-y", "@example/mcp-server"],
-      "sandboxEnabled": true,
-      "sandbox": {
-        "filesystem": {
-          "allowWrite": ["${workspaceFolder}"]
-        },
-        "network": {
-          "allowedDomains": ["api.example.com"]
-        }
-      }
-    }
-  }
-}
-```
-
-Sandboxed servers only access explicitly permitted paths and domains, and their tool calls are auto-approved.
-
-### When to Use MCP Servers
-
-- You need Copilot to **query or act on external systems** (databases, cloud APIs, issue trackers, CI/CD)
-- You want to **standardize tool access** across your team by committing `.vscode/mcp.json`
-- You need to **extend agent capabilities** beyond what built-in tools provide
-- You want to give Copilot **browser automation** (Playwright), **search** (Brave, Google), or other specialized abilities
-- You're building a **custom integration** — MCP SDKs are available in Python, TypeScript, Java, C#, and more
-
-:::important
-Organizations can centrally manage which MCP servers are allowed via GitHub policies.  If you are unsure of your organizations policies around MCP server usage, check with your GitHub Copilot administrators before adding new servers.
-:::
-
 
 ## 7. Agent Hooks
 

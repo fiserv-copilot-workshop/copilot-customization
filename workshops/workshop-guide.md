@@ -19,8 +19,6 @@ This workshop covers the full spectrum of customization, from basic instructions
 | 3 | [Discovery](/workshops/copilot-customization/identify_use_cases) | Identify Use Cases |
 | 4 | [Agent Skills](/workshops/copilot-customization/agent_skills_developer_guide) | Building Prompts and Skills |
 | 5 | [Custom Agents](/workshops/copilot-customization/custom_agent_developer_guide) | Creating Custom Agents |
-| 6 | [Integrations](/workshops/copilot-customization/integrations) | Integrating with Other Tools using MCP Servers |
-| 7 | [Agentic Workflows](/workshops/copilot-customization/agentic_workflows) | Building AI-Powered Workflows |
 
 ## Getting Started
 
