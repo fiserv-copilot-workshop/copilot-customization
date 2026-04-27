@@ -14,11 +14,11 @@ This workshop covers the full spectrum of customization, from basic instructions
 
 | Step | Module | Description |
 |------|--------|-------------|
-| 1 | [Introduction](/workshops/copilot-customization/copilot_customization_handbook) | Customization Handbook |
-| 2 | [Preparation](/workshops/copilot-customization/prepare_your_repository) | Optimizing your Repository for AI |
-| 3 | [Discovery](/workshops/copilot-customization/identify_use_cases) | Identify Use Cases |
-| 4 | [Agent Skills](/workshops/copilot-customization/agent_skills_developer_guide) | Building Prompts and Skills |
-| 5 | [Custom Agents](/workshops/copilot-customization/custom_agent_developer_guide) | Creating Custom Agents |
+| 1 | [Introduction](./workshops/copilot-customization/copilot_customization_handbook) | Customization Handbook |
+| 2 | [Preparation](./workshops/copilot-customization/prepare_your_repository) | Optimizing your Repository for AI |
+| 3 | [Discovery](./workshops/copilot-customization/identify_use_cases) | Identify Use Cases |
+| 4 | [Agent Skills](./workshops/copilot-customization/agent_skills_developer_guide) | Building Prompts and Skills |
+| 5 | [Custom Agents](./workshops/copilot-customization/custom_agent_developer_guide) | Creating Custom Agents |
 
 ## Getting Started
 
