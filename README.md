@@ -10,7 +10,7 @@ A minimal full-stack application template for learning GitHub Copilot capabiliti
 - **Frontend:** React 18 + TypeScript + Vite + Tailwind CSS
 - **Testing:** xUnit + Moq (backend)
 
-This template is a companion to the [GitHub Copilot Customization Workshop](https://copilot-academy.github.io/workshops/copilot-customization). Please refer to the workshop materials for detailed instructions on how to configure and use GitHub Copilot agents, prompts, and skills in the context of this project.
+This template is a companion to the [GitHub Copilot Customization Workshop](https://github.com/fiserv-copilot-workshop/copilot-customization/blob/main/workshops/workshop-guide.md). Please refer to the workshop materials for detailed instructions on how to configure and use GitHub Copilot agents, prompts, and skills in the context of this project.
 
 ## Getting Started with Codespaces (Recommended)
 
